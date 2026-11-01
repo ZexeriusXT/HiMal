@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For MAL, with love</title>
+<style>
+:root {
+  --site-primary: #d98fa7;
+  --site-secondary: #8ca58a;
+  --site-background: #fffaf5;
+  --site-on-primary: #381d29;
+  --site-on-secondary: #172b1a;
+  --site-on-background: #49353c;
+  --site-font-body: "Trebuchet MS", Arial, sans-serif;
+  --site-font-heading: Georgia, "Times New Roman", serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--site-font-body); background: var(--site-background); color: var(--site-on-background); }
+#app { min-height: 100vh; width: 100%; border-radius: 0; overflow: hidden; position: relative; background-color: var(--site-background); background-image: radial-gradient(ellipse at 5% 8%, #f6dbe4 0, transparent 27%), radial-gradient(ellipse at 96% 30%, #e0eadc 0, transparent 25%), radial-gradient(ellipse at 70% 95%, #f8e7e4 0, transparent 28%); }
+.decor { pointer-events:none; position:absolute; opacity:var(--site-decoration-opacity); font-size: clamp(1.5rem, 4vw, 3rem); color:var(--site-secondary); }
+.decor.a { top: 25px; left: 22px; transform: rotate(-18deg); }
+.decor.b { top: 150px; right: 20px; color:var(--site-primary); transform: rotate(20deg); }
+.decor.c { bottom: 50px; left: 25px; color:var(--site-primary); }
+main { width: min(900px, 100%); margin: 0 auto; padding: calc(34px * var(--site-spacing-scale)) 20px 60px; position:relative; }
+nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
+nav a { color:var(--site-on-background); text-decoration:none; font-size:.84rem; border:1px solid #ead5d8; padding:9px 14px; border-radius:999px; background:light-dark(#ffffffbd,#30272c); }
+.hero { text-align:center; padding:34px 12px 55px; }
+.eyebrow { text-transform:uppercase; letter-spacing:.2em; font-size:.72rem; color:#8b9c7f; font-weight:bold; }
+h1,h2,h3 { font-family:var(--site-font-heading); font-weight:normal; }
+h1 { font-size:clamp(2.7rem, 8vw, 5.3rem); line-height:1.04; margin:18px 0; color:#a95876; }
+.hero p { font-size:1.05rem; line-height:1.8; max-width:560px; margin:0 auto 22px; }
+.flower { font-size:2rem; margin:12px 0; }
+.pill { display:inline-block; background:var(--site-secondary); color:var(--site-on-secondary); border-radius:999px; padding:12px 19px; text-decoration:none; font-size:.9rem; border:0; cursor:pointer; font-family:inherit; transition:transform .2s; }
+.pill:hover { transform:translateY(-2px); }
+section { margin:20px 0 44px; padding:clamp(22px, 5vw, 38px); border:1px solid #ead9d7; border-radius:calc(26px * var(--site-radius-scale)); background:light-dark(#fffdf9d9,#292329); box-shadow:0 12px 35px #8c5a5a0d; }
+section h2 { font-size:calc(clamp(1.8rem, 5vw, 2.7rem) * var(--site-heading-scale)); text-align:center; margin:0 0 12px; color:#a95876; }
+.sub { text-align:center; line-height:1.7; max-width:620px; margin:0 auto 25px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:13px; }
+.card { text-align:left; border:1px solid #ecd8dc; border-radius:18px; background:light-dark(#fff7f7,#342930); padding:18px; min-height:125px; cursor:pointer; color:var(--site-on-background); font:inherit; transition:transform .2s, border-color .2s; }
+.card:hover,.card:focus-visible { transform:translateY(-3px); border-color:var(--site-primary); outline:none; }
+.card .emoji { display:block; font-size:1.6rem; margin-bottom:9px; }
+.card strong { display:block; color:#a95876; margin-bottom:7px; }
+.card span:last-child { line-height:1.5; font-size:.92rem; }
+.story { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
+.story article { padding:20px; background:light-dark(#f4f0e7,#292b25); border-radius:18px; text-align:center; }
+.story .number { font-size:1.6rem; }
+.story h3 { font-size:1.3rem; margin:10px 0 6px; color:#6f8b6b; }
+.story p { line-height:1.65; font-size:.94rem; margin:0; }
+.letter { font-family:var(--site-font-heading); font-size:1.12rem; line-height:1.95; white-space:normal; }
+.letter p { margin:0 0 16px; }
+.signature { color:#a95876; font-style:italic; font-size:1.3rem; }
+.center { text-align:center; }
+.hidden-note { display:none; margin-top:22px; padding:22px; border-radius:18px; background:light-dark(#f8e7eb,#3a2931); text-align:center; line-height:1.8; animation:appear .5s ease; }
+.hidden-note.show { display:block; }
+footer { text-align:center; padding:5px 10px 25px; color:#8d7a80; font-size:.84rem; line-height:1.7; }
+.heart { position:fixed; z-index:10; bottom:-30px; animation:floatUp 4s linear forwards; pointer-events:none; }
+@keyframes floatUp { to { transform:translateY(-110vh) rotate(25deg); opacity:0; } }
+@keyframes appear { from {opacity:0; transform:translateY(8px)} to {opacity:1; transform:translateY(0)} }
+@media (prefers-color-scheme: dark) { body { background:#201b20; } }
+@media (max-width:480px) { main {padding-left:14px;padding-right:14px;} nav {margin-bottom:20px;} nav a {padding:8px 11px;} .hero {padding-top:24px;} section {padding:22px 17px;} }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="decor a" aria-hidden="true">❀</div><div class="decor b" aria-hidden="true">✿</div><div class="decor c" aria-hidden="true">❋</div>
+  <main>
+    <nav aria-label="Page sections"><a href="#story">Our story</a><a href="#love">Reasons I love you</a><a href="#letter">A little letter</a></nav>
+    <header class="hero">
+      <div class="eyebrow">Every little moment with you</div>
+      <div class="flower" aria-hidden="true">🌷 🤍 🌿</div>
+      <h1>Happy Monthsary,<br>my MAL</h1>
+      <p>A tiny corner of the internet made just for you, my favorite person. Even with all the miles between us, you still make my days feel softer and brighter.</p>
+      <button class="pill" id="startBtn">Tap for a little surprise ♡</button>
+    </header>
+    <section id="story">
+      <h2>Our little story</h2>
+      <p class="sub">It's funny how something that started on Roblox could turn into someone this special to me.</p>
+      <div class="story">
+        <article><div class="number">🎮</div><h3>How we met</h3><p>Just two people meeting on Roblox, not knowing that one little moment would lead to us.</p></article>
+        <article><div class="number">💗</div><h3>The day you said yes</h3><p>One of my favorite memories. The day you accepted me and gave me a memory I'll always keep close.</p></article>
+        <article><div class="number">🌱</div><h3>Us, growing</h3><p>We're still learning each other, figuring things out, and choosing to make this love work—even from far away.</p></article>
+      </div>
+    </section>
+    <section id="love">
+      <h2>Little things I love about you</h2>
+      <p class="sub">Tap each flower. There are so many things I adore about you, but here are a few I never want you to forget.</p>
+      <div class="cards">
+        <button class="card" data-note="Your laugh can change my whole mood. Even when my day is tiring, hearing you laugh makes things feel lighter. 🌸"><span class="emoji">🌸</span><strong>Your laugh</strong><span>Tap to open a little note</span></button>
+        <button class="card" data-note="Your voice is one of my favorite sounds. I could listen to you talk about the simplest things and still feel lucky that I get to hear you. 🎧"><span class="emoji">🎧</span><strong>Your voice</strong><span>Tap to open a little note</span></button>
+        <button class="card" data-note="I love your personality—all the little things that make you you. I don't need you to be perfect; I just want to keep getting to know the real you. 🌿"><span class="emoji">🌿</span><strong>Your personality</strong><span>Tap to open a little note</span></button>
+        <button class="card" data-note="You're beautiful, MAL, but what makes you even more beautiful to me is the way you carry yourself and let your own light show. 🌷"><span class="emoji">🌷</span><strong>Your beauty</strong><span>Tap to open a little note</span></button>
+        <button class="card" data-note="I admire your confidence. I hope you always remember how special you are, even on the days when you don't feel your best. ✨"><span class="emoji">✨</span><strong>Your confidence</strong><span>Tap to open a little note</span></button>
+        <button class="card" data-note="And most of all, I love you for being you. Not because of what you do for me, but because you're the person you are. 🤍"><span class="emoji">🤍</span><strong>Just you</strong><span>Tap to open a little note</span></button>
+      </div>
+      <div id="cardNote" class="hidden-note" aria-live="polite"></div>
+    </section>
+    <section id="letter">
+      <h2>A letter for you</h2>
+      <p class="sub">Read this whenever you need a reminder of how much you mean to me.</p>
+      <div class="letter">
+        <p>Hi, my MAL. 🤍</p>
+        <p>Happy monthsary, love. I wish I could be beside you right now, hold your hand, see your smile up close, and give you the tightest hug instead of having to do everything through a screen.</p>
+        <p>Being in a long-distance relationship isn't always easy, but I'm thankful that it's you I'm doing this with. I love hearing your voice, making you laugh, and learning all the little things about you. Even on days when we misunderstand each other or things don't go as planned, I still want to understand you better and keep growing with you.</p>
+        <p>I can't promise that every day will be perfect, but I can promise to keep trying, to listen, to communicate, and to show you that you're loved—not only through gifts or sweet words, but through the way I treat you.</p>
+        <p>And someday, I won't have to rely on delivery riders to bring your flowers and gifts. I'll be the one standing in front of you, holding them myself, waiting to see that smile I love so much. Until that day comes, I hope these little efforts remind you that even from far away, you're always in my heart.</p>
+        <p>Thank you for being part of my life, for the memories we've made, and for the ones we still have ahead of us. I love you, MAL. One month at a time, one little memory at a time, let's keep making our story ours. 🌷</p>
+        <p class="signature">Always your MAL's person,<br>with all my love ♡</p>
+      </div>
+    </section>
+    <section class="center">
+      <h2>One last little thing…</h2>
+      <p class="sub">There's a tiny surprise waiting for you. Press the button when you're ready, love.</p>
+      <button class="pill" id="surpriseBtn">Open my surprise 💌</button>
+      <div id="surpriseNote" class="hidden-note" aria-live="polite"><div style="font-size:2rem">💐💗🌷</div><h3 style="color:#a95876">If I could be anywhere…</h3><p>I'd choose right beside you. To give you flowers in person, hold your hand, and remind you that you never have to wonder if you're loved. Until I can do that, here's a little piece of my heart, made just for you.</p><p><strong>Distance is between us, but you're still close to my heart. I love you, MAL. 🤍</strong></p></div>
+    </section>
+    <footer>Made with love, just for MAL 🌸<br>cream skies, pink flowers, green leaves, and all my love for you.</footer>
+  </main>
+</div>
+<script>
+const noteBox = document.getElementById('cardNote');
+document.querySelectorAll('.card').forEach(card => card.addEventListener('click', () => {
+  noteBox.textContent = card.dataset.note;
+  noteBox.classList.add('show');
+}));
+function floatHearts(count=24) {
+  const symbols = ['♡','♥','🌸','🌷','✿'];
+  for (let i=0;i<count;i++) {
+    const el=document.createElement('span');
+    el.className='heart';
+    el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    el.style.left=(Math.random()*100)+'vw';
+    el.style.fontSize=(16+Math.random()*22)+'px';
+    el.style.color=['#d98fa7','#8ca58a','#bd6b89'][Math.floor(Math.random()*3)];
+    el.style.animationDelay=(Math.random()*1.2)+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),5200);
+  }
+}
+document.getElementById('startBtn').addEventListener('click',()=>{document.getElementById('story').scrollIntoView({behavior:'smooth'});floatHearts(18);});
+document.getElementById('surpriseBtn').addEventListener('click',()=>{document.getElementById('surpriseNote').classList.toggle('show');floatHearts(34);});
+</script>
+</body>
+</html>
